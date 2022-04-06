@@ -1,0 +1,29 @@
+
+#Tags of 30 top questions of initial dataset for each of initial tag 
+
+SELECT Top30.id,
+       questionbody,
+       t.tagname
+FROM  (SELECT TOP 30tags.tagname,
+                    PQ.id,
+                    PQ.body           AS questionBody,
+                    PQ.viewcount,
+                    PQ.score,
+                    PACC.body         AS answerBody,
+                    PQ.creationdate,
+                    PACC.creationdate AcceptedAnswerdate
+       FROM   tags
+              INNER JOIN posttags
+                      ON posttags.tagid = tags.id
+              INNER JOIN posts PQ
+                      ON PQ.id = posttags.postid
+              LEFT OUTER JOIN posts PACC
+                           ON PQ.acceptedanswerid = PACC.id
+       WHERE  tags.tagname IN( 'vhdl' )
+       ORDER  BY tags.tagname,
+                 score DESC) Top30
+      INNER JOIN posttags allTags
+              ON Top30.id = allTags.postid
+      INNER JOIN tags t
+              ON allTags.tagid = t.id
+ORDER  BY id

@@ -1,0 +1,119 @@
+
+#######SIG AND Relevance WITHOUT Threshold###############3 
+
+SELECT DISTINCT PQ.id,
+                PQ.score
+INTO   #all_q
+FROM   tags
+       INNER JOIN posttags
+               ON posttags.tagid = tags.id
+       INNER JOIN posts PQ
+               ON PQ.id = posttags.postid
+WHERE  tags.tagname IN ( 'vhdl', 'verilog', 'system-verilog', 'fpga',
+                         'systemc', 'lava', 'hardware-programming', 'digital',
+                         'asic', 'hdl', 'intel-fpga', 'register-transfer-level',
+                         'questasim', 'quartus' )
+Declare @AllNEWQCount int;
+
+Select @AllNEWQCount = Count(*) From #All_Q;
+
+SELECT DISTINCT tagid,tagname
+INTO   #newtags
+FROM   tags
+       INNER JOIN posttags
+               ON posttags.tagid = tags.id
+       INNER JOIN #All_Q PQ
+               ON PQ.id = posttags.postid
+WHERE  tags.tagname NOT IN ( 'vhdl', 'verilog', 'system-verilog', 
+                             'systemc', 'lava'  , 'hdl' )
+Declare @AllQCount int;
+Select @AllQCount = count(*) From posts ALLP where ALLP.ParentId is null;
+Select * from(
+SELECT P_TAGS.tagid,
+       P_TAGS.tagname,
+       @AllNEWQCount AllNEWQCount,
+       @AllQCount AllQCount,
+       Q_TAGS.counttag QCount,
+       P_TAGS.counttag PCount,
+       Cast(Q_TAGS.counttag AS FLOAT) / Cast(P_TAGS.counttag AS FLOAT) AS
+       significance,
+       Cast(Q_TAGS.counttag AS FLOAT) / Cast(@AllNEWQCount AS FLOAT) AS
+       Revelance
+FROM   (SELECT t.tagid,t.tagname,
+               Count(*) countTag
+        FROM   #newtags t
+               INNER JOIN posttags
+                       ON posttags.tagid = t.tagid
+               INNER JOIN posts PQ
+                       ON PQ.id = posttags.postid
+        GROUP  BY t.tagid,t.tagname) P_TAGS,
+       (SELECT t.tagid,
+               Count(*) countTag
+        FROM   #newtags t
+               INNER JOIN posttags
+                       ON posttags.tagid = t.tagid
+               INNER JOIN #all_q PQ
+                       ON PQ.id = posttags.postid
+        GROUP  BY t.tagid) Q_TAGS
+        WHERE  P_TAGS.tagid = Q_TAGS.tagid ) All_measures
+Order By  significance Desc,   Revelance Asc
+
+##############SIGN AND Relevance with threshold #####################
+
+SELECT DISTINCT PQ.id,
+                PQ.score
+INTO   #all_q
+FROM   tags
+       INNER JOIN posttags
+               ON posttags.tagid = tags.id
+       INNER JOIN posts PQ
+               ON PQ.id = posttags.postid
+WHERE  tags.tagname IN ( 'vhdl', 'verilog', 'system-verilog', 
+                         'ystemc', 'lava', 'hdl' )
+Declare @AllNEWQCount int;
+
+Select @AllNEWQCount = Count(*) From #All_Q;
+
+SELECT DISTINCT tagid,tagname
+INTO   #newtags
+FROM   tags
+       INNER JOIN posttags
+               ON posttags.tagid = tags.id
+       INNER JOIN #All_Q PQ
+               ON PQ.id = posttags.postid
+WHERE  tags.tagname NOT IN ( 'vhdl', 'verilog', 'system-verilog', 
+                             'systemc', 'lava'                          
+, 'hdl' )
+Declare @AllQCount int;
+Select @AllQCount = count(*) From posts ALLP where ALLP.ParentId is null;
+Select * from(
+SELECT P_TAGS.tagid,
+       P_TAGS.tagname,
+       @AllNEWQCount AllNEWQCount,
+       @AllQCount AllQCount,
+       Q_TAGS.counttag QCount,
+       P_TAGS.counttag PCount,
+       Cast(Q_TAGS.counttag AS FLOAT) / Cast(P_TAGS.counttag AS FLOAT) AS
+       significance,
+       Cast(Q_TAGS.counttag AS FLOAT) / Cast(@AllNEWQCount AS FLOAT) AS
+       Revelance
+FROM   (SELECT t.tagid,t.tagname,
+               Count(*) countTag
+        FROM   #newtags t
+               INNER JOIN posttags
+                       ON posttags.tagid = t.tagid
+               INNER JOIN posts PQ
+                       ON PQ.id = posttags.postid
+        GROUP  BY t.tagid,t.tagname) P_TAGS,
+       (SELECT t.tagid,
+               Count(*) countTag
+        FROM   #newtags t
+               INNER JOIN posttags
+                       ON posttags.tagid = t.tagid
+               INNER JOIN #all_q PQ
+                       ON PQ.id = posttags.postid
+        GROUP  BY t.tagid) Q_TAGS
+        WHERE  P_TAGS.tagid = Q_TAGS.tagid ) All_measures
+Where cast(significance As float) >= 0.1
+  --And cast(Revelance As float) >= 0.001
+Order By  significance Desc,   Revelance Asc

@@ -1,0 +1,50 @@
+
+#########Final Dataset with final tags############
+
+SELECT 
+       tags.tagname,
+       PQ.id,
+       PQ.title,
+       PQ.body as questionBody,
+       PQ.viewcount,
+       PQ.score,
+       PACC.body as ACCanswerBody,
+       PQ.creationdate,
+       PACC.creationdate AcceptedAnswerdate
+       into #tempData
+FROM   tags
+       INNER JOIN posttags
+               ON posttags.tagid = tags.id
+       INNER JOIN posts PQ
+               ON PQ.id = posttags.postid
+       Left outer Join posts PACC on PQ.AcceptedAnswerId = PACC.Id
+       WHERE  tags.tagname in('vhdl',  'verilog',  'system-verilog',  'systemc',  'lava',  'hdl', 'system-verilog-dpi',
+        'system-verilog-assertions', 'chisel', 'vpi');
+        
+SELECT id,
+       title,
+       AcceptedAnswerdate, LEFT(tagnames , LEN(tagnames )-1) AS tagnames,
+       questionBody,
+       viewcount,
+       score,
+       ACCanswerBody,
+       creationdate
+FROM #tempData AS extern
+CROSS APPLY
+(
+    SELECT tagname + ','
+    FROM #tempData AS intern
+    WHERE extern.id = intern.id
+    FOR XML PATH('')
+) pre_trimmed (tagnames)
+GROUP BY id,
+       title,
+       questionBody,
+       viewcount,
+       score,
+       ACCanswerBody,
+       creationdate,
+       AcceptedAnswerdate, tagnames;
+
+
+

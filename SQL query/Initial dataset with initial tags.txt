@@ -1,0 +1,18 @@
+# Initial dataset with initial tags
+
+SELECT tags.tagname,
+       PQ.id,
+       PQ.body as questionBody,
+       PQ.viewcount,
+       PQ.score,
+       PACC.body as accanswerBody,
+       PQ.creationdate,
+       PACC.creationdate AcceptedAnswerdate
+FROM   tags
+       INNER JOIN posttags
+               ON posttags.tagid = tags.id
+       INNER JOIN posts PQ
+               ON PQ.id = posttags.postid
+       Left outer Join posts PACC on PQ.AcceptedAnswerId = PACC.Id
+WHERE  tags.tagname in( 'vhdl' , 'verilog','system-verilog','fpga')
+order by tags.tagname,score desc
