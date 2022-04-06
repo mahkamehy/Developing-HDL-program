@@ -1,6 +1,6 @@
 # Developing-HDL-program
 Studying the Challenges of Developing Hardware Description Language Programs
-#Objectives
+# Objectives
 Modern computer systems typically consist of two indispensable components: general-purpose 
 hardware (e.g., CPU) and highly-versatile software (e.g., web applications). In this context, 
 turing award winners John Hennessy and David Patterson, in their recent turing lecture, 
@@ -10,12 +10,12 @@ understand the challenges of developing HDL programs and explore opportunities f
 Software Engineering community to support the practices of HDL program development. 
 Developers usually ask and answer technical questions on technical forums such as Stack 
 Exchange forums.These questions may communicate challenges faced by developers when 
-developing HDL programs. Therefore, this research identifies and analyzes over 16, 000 HDL-related
-questions from two Stack Exchange forums: Stack Overflow (SO) and Electrical 
+developing HDL programs. Therefore, this research identifies and analyzes over 16, 000
+HDL-related questions from two Stack Exchange forums: Stack Overflow (SO) and Electrical 
 Engineering (EE) Stack Exchange. We analyze these HDL-related questions using a 
 combination of qualitative analysis and automated topic modelling, in order to understand the 
 challenges faced by developers when developing HDL programs. 
-#Method
+# Method
 To understand the challenges of developing HDL programs, we study Stack Exchange forums 
 where developers ask and answer technical questions, including HDL-related questions. We 
 manually examined all the Stack Exchange forums to identify the ones that contain HDL-related 
