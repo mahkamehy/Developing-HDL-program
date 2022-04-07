@@ -38,8 +38,8 @@ The data folder contains the data files used in our paper and the Jupyter contai
 for reproducing the results. The SQL query folder contains sql codes for reproducing result from Stack Exchange forums.
 
 # Data description
-The data can be found in the data directory, which contains six files:
-Dataset SO: the file contains all the extracted data from Stack Overflow forum. It used for topic modeling implementation 
+The data can be found in the data directory, which contains four files:
+*Dataset SO*: the file contains all the extracted data from Stack Overflow forum. It used for topic modeling implementation 
 Dataset EE: the file contains all the extracted data from Electrical Engineering forum. It used foe topic modeling implementation.
 Topic_modeling_result_HDL_SO: the file contains topic modeling result for SO
 Topic_modeling_result_HDL_EE the file contains topic modeling result for EE 
