@@ -39,10 +39,15 @@ for reproducing the results. The SQL query folder contains sql codes for reprodu
 
 # Data description
 The data can be found in the data directory, which contains four files:
+
 *Dataset SO*: the file contains all the extracted data from Stack Overflow forum. It used for topic modeling implementation 
-Dataset EE: the file contains all the extracted data from Electrical Engineering forum. It used foe topic modeling implementation.
-Topic_modeling_result_HDL_SO: the file contains topic modeling result for SO
-Topic_modeling_result_HDL_EE the file contains topic modeling result for EE 
+
+*Dataset EE*: the file contains all the extracted data from Electrical Engineering forum. It used foe topic modeling implementation.
+
+*Topic_modeling_result_HDL_SO*: the file contains topic modeling result for SO. It used for the difficulty level of topic as well.
+
+*Topic_modeling_result_HDL_EE*: the file contains topic modeling result for EE. It used for the difficulty level of topic as well.
+
 
 
 
