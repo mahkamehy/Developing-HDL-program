@@ -48,6 +48,8 @@ The data can be found in the data directory, which contains four files:
 
 *Topic_modeling_result_HDL_EE*: the file contains topic modeling result for EE. It used for the difficulty level of topic as well.
 
+# Replicate the results
+
 
 
 
