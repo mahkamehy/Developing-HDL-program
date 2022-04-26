@@ -40,7 +40,7 @@ for reproducing the results. The SQL query folder contains sql codes for reprodu
 # Data description
 The data can be found in the data directory, which contains four files:
 
-'Dataset SO': the file contains all the extracted data from Stack Overflow forum. It used for topic modeling implementation 
+`Dataset SO`: the file contains all the extracted data from Stack Overflow forum. It used for topic modeling implementation 
 
 *Dataset EE*: the file contains all the extracted data from Electrical Engineering forum. It used foe topic modeling implementation.
 
