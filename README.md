@@ -32,7 +32,7 @@ of each topic was estimated by two widely used heuristics. the percentages of qu
 topic receiving an accepted answer and the time taken for these questions to receive an 
 accepted answer. Intuitively, a more difficult topic is the one of which the related questions 
 receives fewer accepted answers and after a long period of waiting time. 
-# Folder Description
+
 This repo contains the data and the source code used in our paper On Hardware Description Languages
 The data folder contains the data files used in our paper and the Jupyter contains the jupyter notebooks
 for reproducing the results. The SQL query folder contains sql codes for reproducing result from Stack Exchange forums.
